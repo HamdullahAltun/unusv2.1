@@ -1,0 +1,57 @@
+<%- include('blocks/header', {bot, user, path}) %>
+<%
+const help = {};
+	bot.commands.forEach((command) => {
+		const cat = command.conf.kategori;
+		if (!help.hasOwnProperty(cat)) help[cat] = [];
+		help[cat].push(command);
+	});
+	String.prototype.capitalize = function() {
+		return this.charAt(0).toUpperCase() + this.slice(1);
+	}
+%>
+<div class="container">
+  <head>
+    <script data-ad-client="ca-pub-3227302706684816" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+	<div class="row justify-content-md-center">
+		<h2 style="color: #54ebeb;">Unus Bot Komutlar</h2>
+	</div>
+  
+	<% for (const kategori in help) { %>
+		<br>
+  
+		<div class="row justify-content-md-center">
+			<h3 style="color: #ffffff;"><%= kategori.capitalize().replace("Yapımcı", "Bot Geliştiricisi").replace("War", "Savaş") %> Komutları</h3>
+		</div>
+		<br>
+		<div class="card-columns" style="background-color: #ffffff; padding: 20px; border-radius: 40px;">
+			<% for (const command of help[kategori]) { %>
+				<div class="card" style="background-color: #474747; margin: 3px; border-radius: 40px;">
+					<h3 class="card-header" style="color: #000000;"><center><a href="#" data-toggle="modal" data-target="#<%= `${command.help.name}` %>Modal" style="text-decoration: none; color: #54ebeb;"><%= command.help.name %></a></center></h3>
+					<div class="card-block">
+						<p class="card-text" ><center><a style="color: #ffffff;"a/><%= command.help.description %></center></p>
+           <h6 class="card-subtitle text-muted" align="right"><center>Gerekli Yetki: <%= command.conf.permLevel.toString().replace('0', 'Yetki gerekmiyor').replace('2', 'Üyeleri Yasakla').replace('3', 'Yönetici').replace('3', 'Yönetici').replace('4', 'pRx').replace('BAN_MEMBERS','Üyeleri Yasakla').replace('KICK_MEMBERS','Üyeleri At').replace('MANAGE_CHANNELS','Kanalları Yönet').replace('MANAGE_ROLES','Rolleri Yönet').replace('MANAGE_GUILD','Sunucuyu Yönet').replace("MANAGE_EMOJIS","Emojileri Yönet") %></center><br /></h6>
+					</div>
+				</div>
+				<div id="<%= `${command.help.name}` %>Modal" class="modal fade" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header btn-info disabled" style="background-color: #424d4d; border: 0px;">
+								<h4 class="modal-title"><%= command.help.name %></h4>
+							</div>
+							<div class="modal-body" style="background-color: #ffffff; border: 0px; color: #000000;">
+                <p><b>Açıklama:</b> <%= command.help.description %></p>
+								<p><b>Örnek Kullanım:</b> <%= command.help.usage %></p>
+								<p><b>Alternatif Kullanımlar:</b> <%= `${command.conf.aliases.join(', ') || 'Bulunmuyor'}` %></p>
+								<b>Gerekli Yetki:</b> <%= command.conf.permLevel.toString().replace('0', 'Yetki gerekmiyor').replace('2', 'Üyeleri Yasakla').replace('3', 'Yönetici').replace('3', 'Yönetici').replace('4', 'pRx').replace('BAN_MEMBERS','Üyeleri Yasakla').replace('KICK_MEMBERS','Üyeleri At').replace('MANAGE_CHANNELS','Kanalları Yönet').replace('MANAGE_ROLES','Rolleri Yönet').replace('MANAGE_GUILD','Sunucuyu Yönet').replace("MANAGE_EMOJIS","Emojileri Yönet") %></p>
+							</div>
+							<div class="modal-footer" style="background-color: #ffffff; border: 0px;"><button type="button" class="btn btn-outline-danger" data-dismiss="modal">Kapat</button></div>
+						</div>
+					</div>
+				</div>
+			<% } %>
+		</div>
+	<% } %>
+</div>
+<% include ./blocks/footer %>

@@ -1,0 +1,33 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div class="card-header" style="padding: 2px; background-color: #ADA9A9; border: 0px;">
+	<ul class="nav nav-tabs">
+		<li class="nav-item">
+			<a class="nav-link<% if(active === 'genel') { %> active<% } %>" href="/dashboard/<%= guild.id %>/genel">Genel</a>
+		</li>
+            		<li class="nav-item">
+			<a class="nav-link<% if(active === 'otorol') { %> active<% } %>" href="/dashboard/<%= guild.id %>/otorol">Otorol</a>
+		</li>
+    		<li class="nav-item">
+			<a class="nav-link<% if(active === 'sayac') { %> active<% } %>" href="/dashboard/<%= guild.id %>/sayac">Sayaç</a>
+    </li>
+    		<li class="nav-item">
+			<a class="nav-link<% if(active === 'kayit') { %> active<% } %>" href="/dashboard/<%= guild.id %>/kayit">Kayıt</a>
+		</li>
+        		<li class="nav-item">
+			<a class="nav-link<% if(active === 'filtre') { %> active<% } %>" href="/dashboard/<%= guild.id %>/filtre">Filtre</a>
+		</li>
+    		<li class="nav-item">
+			<a class="nav-link<% if(active === 'hgbb') { %> active<% } %>" href="/dashboard/<%= guild.id %>/hgbb">HGBB</a>
+		</li>
+		<li class="nav-item">
+      			<a class="nav-link<% if(active === 'diger') { %> active<% } %>" href="/dashboard/<%= guild.id %>/diger">Diğer</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link<% if(active === 'istatistikler') { %> active<% } %>" href="/dashboard/<%= guild.id %>/istatistikler">İstatistikler</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link<% if(active === 'uyeler') { %> active<% } %>" href="/dashboard/<%= guild.id %>/uyeler">Üyeler</a>
+		</li>
+	</ul>
+</div>

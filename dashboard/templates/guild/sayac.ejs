@@ -1,0 +1,95 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  <script data-ad-client="ca-pub-3227302706684816" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+<%- include('../blocks/header', {bot, user, path}) %>
+<div class="container">
+	<div class="row justify-content-md-center">
+		<h2 style="color: #fff;">Sunucu Yönetimi</h2>
+	</div>
+	<div class="row">
+		<div class="col col-4">
+			<%- include('../blocks/guild-card', {guild}) %>
+		</div>
+		<div class="col">
+			<%- include('../blocks/guild-nav.ejs', {active: "sayac", guild}) %>
+			<form method="post">
+				<ul class="list-group list-group-flush">
+          <li class="list-group-item" style="padding: 0; background-color: #525656;"> </li>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0" style="width: 100%; margin: 3 !important;">
+              <div class="input-group-addon" style="width: 150px; text-align: center; margin: 5.5px; color: #ffffff; font-size: 15px;">Sayaç</div>
+        <% if (bot.ayar.has(`sayacS_${guild.id}`) === false) { %>
+        <input type="text" style="text-align: left; width:30%; border:2px solid #456879; border-radius:10px;" name="sayacsayi" id="sayacsayi"  maxlength="1950" placeholder="Sayaç sayısını yazınız.">
+          <% } %>
+					<% if(bot.ayar.has(`sayacS_${guild.id}`) === true) { %>
+        <input type="text" style="text-align: left; width:30%; border:2px solid #456879; border-radius:10px;" name="sayacsayi" id="sayacsayi"  maxlength="1950" value="<%=bot.ayar.fetch(`sayacS_${guild.id}`)%>">
+        
+          <% } %>
+                              <% if (bot.ayar.has(`sayacK_${guild.id}`) === false) { %>
+          <select style="text-align: left; width:30%; border:2px solid #456879; border-radius:10px;" name="sayackanal" id="sayackanal">
+            <option disabled selected>Lütfen bir kanal seçiniz.</option>
+            <% guild.channels.filter(c => c.type === "text").forEach(c => { %>
+            <option value="<%=c.id%>">#<%=c.name%></option>
+            <% }); %>
+          </select>
+          <% } %>
+					<% if(bot.ayar.has(`sayacK_${guild.id}`) === true) { %>
+          <select style="text-align: left; width:30%; border:2px solid #456879; border-radius:10px;" name="sayackanal" id="sayackanal">
+            <option value="<%=bot.ayar.fetch(`sayacK_${guild.id}`)%>">#<%=guild.channels.get(bot.ayar.fetch(`sayacK_${guild.id}`)).name%></option>
+					 <% guild.channels.filter(c => c.type === "text").filter(c => c.id !== bot.ayar.fetch(`sayacK_${guild.id}`)).forEach(c => { %>
+            <option value="<%=c.id%>">#<%=c.name%></option>
+          <% }); %>
+          </select>
+          <a href="/dashboard/<%=guild.id%>/sayac/sifirla" class="btn btn-danger" style="color: #ffffff;" role="button">Sıfırla</a>
+          <% } %>
+						</div>
+          
+                           <div class="input-group mb-2 mr-sm-2 mb-sm-0" style="width: 100%; margin: 5 !important;">
+              <div class="input-group-addon" style="width: 150px; text-align: center; margin: 5.5px; color: #ffffff; font-size: 15px; ">Sayaç HG Mesajı</div>
+                             <% if (bot.ayar.has(`premium_${guild.id}`) === false) { %>
+                             	<input type="text" style="text-align: left; width:60%; border:2px solid #456879; border-radius:10px;" name="sayachgmesaj" id="sayachgmesaj" maxlength="150" placeholder="Bu özellik sadece premium sunucular içindir." disabled>
+                             <% } %>
+                              <% if (bot.ayar.has(`premium_${guild.id}`) === true) { %>
+              <% if (bot.ayar.has(`sayacHG_${guild.id}`) === false) { %>
+								<input type="text" style="text-align: left; width:60%; border:2px solid #456879; border-radius:10px;" name="sayachgmesaj" id="sayachgmesaj" maxlength="150" placeholder="Örnek: -server-, Sunucumuza Hoşgeldin, -uye-! -hedefuye- Kişiye Ulaşabilmek İçin -kalanuye- Kişi Kaldı!, -uyesayisi- Kişiyiz.">
+              <% } %>
+              
+							<% if(bot.ayar.has(`sayacHG_${guild.id}`) === true) { %>
+								<input type="text" style="text-align: left; width:60%; border:2px solid #456879; border-radius:10px;" name="sayachgmesaj" id="sayachgmesaj" maxlength="150" value="<%= bot.ayar.fetch(`sayacHG_${guild.id}`) %>" placeholder="Örnek: -server-, Sunucumuza Hoşgeldin, -uye-! -hedefuye- Kişiye Ulaşabilmek İçin -kalanuye- Kişi Kaldı!, -uyesayisi- Kişiyiz.">
+                    <a href="/dashboard/<%=guild.id%>/sayachgmesaj/sifirla" class="btn btn-danger" style="color: #ffffff;" role="button">Sıfırla</a>
+              <% } %>
+                              <% } %>
+						</div>
+          
+                                     <div class="input-group mb-2 mr-sm-2 mb-sm-0" style="width: 100%; margin: 5 !important;">
+              <div class="input-group-addon" style="width: 150px; text-align: center; margin: 5.5px; color: #ffffff; font-size: 15px; ">Sayaç BB Mesajı</div>
+                             <% if (bot.ayar.has(`premium_${guild.id}`) === false) { %>
+                             	<input type="text" style="text-align: left; width:60%; border:2px solid #456879; border-radius:10px;" name="sayacbbmesaj" id="sayacbbmesaj" maxlength="150" placeholder="Bu özellik sadece premium sunucular içindir." disabled>
+                             <% } %>          
+                              <% if (bot.ayar.has(`premium_${guild.id}`) === true) { %>
+              <% if (bot.ayar.has(`sayacBB_${guild.id}`) === false) { %>
+								<input type="text" style="text-align: left; width:60%; border:2px solid #456879; border-radius:10px;" name="sayacbbmesaj" id="sayacbbmesaj" maxlength="150" placeholder="Örnek: -server-, Sunucumuza Hoşgeldin, -uye-! -hedefuye- Kişiye Ulaşabilmek İçin -kalanuye- Kişi Kaldı!, -uyesayisi- Kişiyiz.">
+              <% } %>
+              
+							<% if(bot.ayar.has(`sayacBB_${guild.id}`) === true) { %>
+								<input type="text" style="text-align: left; width:60%; border:2px solid #456879; border-radius:10px;" name="sayacbbmesaj" id="sayacbbmesaj" maxlength="150" value="<%= bot.ayar.fetch(`sayacBB_${guild.id}`) %>" placeholder="Örnek: -server-, Sunucumuza Hoşgeldin, -uye-! -hedefuye- Kişiye Ulaşabilmek İçin -kalanuye- Kişi Kaldı!, -uyesayisi- Kişiyiz.">
+                    <a href="/dashboard/<%=guild.id%>/sayacbbmesaj/sifirla" class="btn btn-danger" style="color: #ffffff;" role="button">Sıfırla</a>
+              <% } %>
+                              <% } %>
+						</div>
+        </ul>
+          
+				<div style="width: 100%; text-align: right; margin-top: 20px;">
+					<a class="btn btn-danger" data-toggle="modal" data-target="#settingsResetModal" role="button" style="color: #ffffff;">Ayarları Sıfırla<i class="fa fa-fw fa-cogs" aria-hidden="true"></i></a>
+					<button type="submit" class="btn btn-primary">Değişiklikleri Kaydet<i class="fa fa-fw fa-save" aria-hidden="true"></i></button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<% include ../blocks/guild-modals %>
+<script type="text/javascript">
+	var ts = parseInt($('#guildCreate').text());
+	$('#guildCreate').html(`<strong>Created:</strong>: ${moment(ts).format('MMMM Do YYYY (h:mm a)')}`);
+</script>
+<% include ../blocks/footer %>
